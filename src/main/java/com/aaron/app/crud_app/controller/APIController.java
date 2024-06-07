@@ -24,7 +24,9 @@ public class APIController {
 
     @ApiOperation(value = "Add a user")
     @PostMapping("/create")
-    public String createUser(@Valid @RequestBody User user ){return service.addUser(user);}
+    public String createUser(@Valid @RequestBody User user ){
+        return service.addUser(user);
+    }
 
     @ApiOperation(value = "Update a user")
     @PutMapping("/update/{id}")
