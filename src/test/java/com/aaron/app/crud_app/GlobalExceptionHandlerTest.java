@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "password", roles = "USER")
     public void testHandleTypeMismatchException() throws Exception {
         mockMvc.perform(put("/update/invalid-id")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -48,6 +50,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "password", roles = "USER")
     public void testHandleValidationExceptions() throws Exception {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("name", "");  // Assuming name is mandatory
@@ -62,6 +65,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "password", roles = "USER")
     public void testHandleHttpMessageNotReadableException() throws Exception {
         String malformedJson = "{ \"firstName\": \"John\", \"lastName\": \"Doe\", \"occupation\": \"Engineer\", }";
 
